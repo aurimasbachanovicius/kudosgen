@@ -1,0 +1,9 @@
+{
+  "name": "aurimasbachanovicius/kudosgen",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Kudosgen\\": "src/"
+    }
+  }
+}
