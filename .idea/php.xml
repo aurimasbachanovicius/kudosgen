@@ -62,6 +62,7 @@
       </interpreter>
     </phpInfoCache>
   </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
   <component name="PhpUnit">
     <phpunit_settings>
       <phpunit_by_interpreter interpreter_id="9c24616e-3e64-402a-a095-c67e0e9a86b7" custom_loader_path="/home/aurimasb/dev/kudosgen/kudosgen/vendor/autoload.php" />
