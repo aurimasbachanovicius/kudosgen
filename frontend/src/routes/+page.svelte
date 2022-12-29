@@ -4,19 +4,32 @@
     let message = '';
     let result = '';
 
+    let imageUrl = 'testing';
+
     async function doPost() {
-        console.log('does post');
-        const res = await fetch('https://httpbin.org/post', {
+        const res = await fetch('http://127.0.0.1:8383', {
             method: 'POST',
             body: JSON.stringify({
                 from,
                 to,
                 message
-            })
-        })
+            }),
+        });
 
-        const json = await res.json()
-        result = JSON.stringify(json)
+        console.log(res);
+
+        // if (res.ok) {
+        //     console.log('OK');
+        // } else {
+        //     console.log('NOT OK');
+        // }
+
+        // console.log(res);
+        // const imageBlob = await res.blob();
+        // console.log(imageBlob);
+        // let reader = new FileReader();
+        // reader.readAsDataURL(imageBlob);
+        // imageUrl = reader.result
     }
 </script>
 
@@ -36,4 +49,4 @@
     <textarea id="message" placeholder="Message" bind:value={message}></textarea>
 </form>
 
-{result}
+<img src={imageUrl} alt=""/>

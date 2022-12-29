@@ -1,17 +1,6 @@
-FROM composer:2 AS composer
-FROM php:8.1-apache AS php-apache
+FROM php:8.1-fpm-alpine as php
 
-FROM composer AS vendor
-COPY kudosgen/composer.json kudosgen/composer.lock ./
-RUN composer validate && composer install -n --ignore-platform-reqs --no-autoloader --no-dev --prefer-dist
+RUN apk add zlib zlib-dev libpng-dev freetype-dev jpeg-dev curl-dev
 
-FROM php-apache AS prod
-WORKDIR /var/www/html
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY --from=vendor /app/vendor ./
-COPY kudosgen/composer.json kudosgen/composer.lock ./
-COPY kudosgen/src ./src
-COPY kudosgen/index.php ./
-
-RUN composer dump-autoload -n -o --no-scripts --no-dev && composer check-platform-reqs
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd
