@@ -11,30 +11,22 @@ class ImageGenerator
      */
     public function generate(GenerateRequest $request): void
     {
+        $im = imagecreatetruecolor(1168, 826);
 
-        $im = imagecreatetruecolor(400, 100);
-        if ($im === false) {
-            throw new Exception('failed to create image');
-        }
+        $font = 'static/arialmt.ttf';
 
         $white = imagecolorallocate($im, 255, 255, 255);
-        if ($white === false) {
-            throw new Exception('failed to create white color');
-        }
-
         $black = imagecolorallocate($im, 0, 0, 0);
-        if ($black === false) {
-            throw new Exception('failed to create black color');
+
+        imagefilledrectangle($im, 0, 0, 600, 300, $white);
+
+        $messages = str_split($request->getMessage(), 25);
+        $counter = 0;
+        foreach ($messages as $message) {
+            $counter++;
+            imagettftext($im, 30, 0, 30, 40 + ($counter * 60), $black, $font, $message);
         }
 
-        imagefilledrectangle($im, 0, 0, 399, 80, $white);
-
-        $text = $request->getFrom() . $request->getTo() . $request->getMessage() . ' ...';
-        $font = 'static/MommyAndBabyPersonalUse.ttf';
-        $i = imagettftext($im, 30, 0, 30, 40, $black, $font, $text);
-        if ($i === false) {
-            throw new Exception('failed to paint image');
-        }
 //        imageantialias();
 //        imagettfbbox();
 

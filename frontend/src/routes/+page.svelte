@@ -2,7 +2,6 @@
     let from = '';
     let to = '';
     let message = '';
-    let result = '';
 
     let imageUrl = 'testing';
 
@@ -16,20 +15,10 @@
             }),
         });
 
-        console.log(res);
-
-        // if (res.ok) {
-        //     console.log('OK');
-        // } else {
-        //     console.log('NOT OK');
-        // }
-
-        // console.log(res);
-        // const imageBlob = await res.blob();
-        // console.log(imageBlob);
-        // let reader = new FileReader();
-        // reader.readAsDataURL(imageBlob);
-        // imageUrl = reader.result
+        const imageBlob = await res.blob();
+        if (imageBlob instanceof Blob) {
+            imageUrl = URL.createObjectURL(imageBlob);
+        }
     }
 </script>
 
@@ -46,7 +35,7 @@
     </div>
 
     <label for="message">Message</label>
-    <textarea id="message" placeholder="Message" bind:value={message}></textarea>
+    <textarea maxlength="102" id="message" placeholder="Message" bind:value={message}></textarea>
 </form>
 
-<img src={imageUrl} alt=""/>
+<img width="100%;" src={imageUrl} alt=""/>
