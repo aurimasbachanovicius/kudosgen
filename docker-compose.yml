@@ -7,12 +7,14 @@ services:
     volumes:
       - "./api/nginx/default.conf:/etc/nginx/conf.d/default.conf"
       - "./api:/var/www/html"
+  
   php:
     build:
       context: .
       target: php
     volumes:
       - "./api:/var/www/html"
+  
   frontend:
     image: node:19-alpine
     command: sh -c 'npm install && npm run dev'
