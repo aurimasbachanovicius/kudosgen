@@ -12,10 +12,10 @@ processes = []
   auto_rollback = true
 
 [build]
-  build-target = "kudosgen-phpfpm.internal"
+  build-target = "nginx-prod"
 
 [build.args]
-  FASTCGI_PASS_HOST="plugh"
+  FASTCGI_PASS_HOST="kudosgen-phpfpm.internal"
 
 [[services]]
   http_checks = []
