@@ -1,0 +1,15 @@
+# fly.toml file generated for kudosgen-phpfpm on 2023-01-02T16:30:39+02:00
+
+app = "kudosgen-phpfpm"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[build]
+  build-target = "php-prod"

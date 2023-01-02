@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  nginx:
+    build:
+      context: .
+      target: nginx-prod
+      args:
+        FASTCGI_PASS_HOST: "php"
+    ports:
+      - "8383:8080"
+
+  php:
+    build:
+      context: .
+      target: php-prod
