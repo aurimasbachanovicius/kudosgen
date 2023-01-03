@@ -13,3 +13,9 @@ services:
     build:
       context: .
       target: php-prod
+
+  frontend:
+    build:
+      context: .
+      target: frontend
+    tty: true

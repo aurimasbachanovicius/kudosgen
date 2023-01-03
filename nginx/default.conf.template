@@ -2,19 +2,23 @@ server {
     listen 8080;
     listen [::]:8080;
 
-    root /var/www/html;
+    root /var/www/html/frontend;
 
-    location / {
+    location ^~ /api {
         rewrite ^ /index.php last;
+
+        location ~ \.php$ {
+            add_header Access-Control-Allow-Origin "*";
+
+            include fastcgi_params;
+            fastcgi_pass ${FASTCGI_PASS_HOST}:9000;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        }
     }
 
-    location ~ \.php$ {
-        add_header Access-Control-Allow-Origin "*";
-
-        include fastcgi_params;
-        fastcgi_pass ${FASTCGI_PASS_HOST}:9000;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    location / {
+        try_files $uri $uri/ =404;
     }
 }
