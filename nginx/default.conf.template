@@ -7,7 +7,7 @@ server {
         try_files $uri $uri/ $uri.html /index.html;
     }
 
-    location ^~ /api/image {
+    location ^~ /api {
         root /var/www/html;
 
         location ~ [^/]\.php(/|$) {
