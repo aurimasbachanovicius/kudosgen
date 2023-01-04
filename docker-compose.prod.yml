@@ -1,20 +1,20 @@
 version: "3.9"
 services:
-  nginx:
+  nginx-prod:
     build:
       context: .
       target: nginx-prod
       args:
-        FASTCGI_PASS_HOST: "php"
+        FASTCGI_PASS_HOST: "php-prod"
     ports:
-      - "8383:8080"
+      - "8384:8080"
 
-  php:
+  php-prod:
     build:
       context: .
       target: php-prod
 
-  frontend:
+  frontend-prod:
     build:
       context: .
       target: frontend

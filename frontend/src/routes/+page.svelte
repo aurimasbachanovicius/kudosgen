@@ -6,7 +6,7 @@
     let imageUrl = '';
 
     async function doPost() {
-        const res = await fetch('https://kudosgen-nginx.fly.dev/', {
+        const res = await fetch('https://kudosgen-nginx.fly.dev/api/image', {
             method: 'POST',
             body: JSON.stringify({
                 from,

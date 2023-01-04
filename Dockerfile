@@ -21,7 +21,7 @@ COPY api/index.php ./
 RUN composer dump-autoload -n -o --no-scripts --no-dev && composer check-platform-reqs
 
 FROM node:19-alpine as node
-WORKDIR /app
+WORKDIR /var/www/html
 
 FROM node as frontend
 COPY frontend ./
@@ -35,4 +35,4 @@ ENV FASTCGI_PASS_HOST $FASTCGI_PASS_HOST
 
 FROM nginx as nginx-prod
 COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
-#COPY --from=frontend-built /var/www/html ./frontend
+COPY --from=frontend /var/www/html/build ./frontend
