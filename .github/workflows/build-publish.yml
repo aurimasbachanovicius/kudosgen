@@ -1,0 +1,36 @@
+name: Build & Publish
+
+concurrency:
+  group: build-and-publish
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy-fpm:
+    name: Deploy fpm
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+      url: 'https://manv2-demo.metasite.lt/'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only --auto-confirm --config fly.phpfpm.toml
+
+  deploy-nginx:
+    name: Deploy nginx
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+      url: 'https://kudosgen-nginx.fly.dev/'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only --auto-confirm --config fly.nginx.toml
