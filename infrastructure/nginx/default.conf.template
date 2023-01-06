@@ -1,3 +1,7 @@
+upstream websocket {
+    server ${FASTCGI_PASS_HOST}:8080;
+}
+
 server {
     listen 8080;
     listen [::]:8080;
@@ -22,5 +26,25 @@ server {
             fastcgi_param HTTP_PROXY "";
             fastcgi_split_path_info ^(.+?\.php)(/.*)$;
         }
+    }
+
+    location ^~ /ws {
+        proxy_pass http://websocket;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 86400;
+    }
+
+    location /status-nginx {
+        stub_status on;
+        access_log  off;
+    }
+
+    location ~ ^/(status|ping)$ {
+        access_log off;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass unix:/var/run/php-fpm.sock;
     }
 }

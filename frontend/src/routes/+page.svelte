@@ -1,41 +1,39 @@
 <script>
-    let from = '';
-    let to = '';
-    let message = '';
+    import {onMount} from 'svelte';
 
-    let imageUrl = '';
+    let form = {};
+
+    let socket = '';
+    let imageData = '';
+
+    onMount(async () => {
+        socket = new WebSocket('ws://kudosgen-nginx.fly.dev/ws');
+
+        socket.onmessage = function (event) {
+            imageData = event.data;
+        };
+    });
 
     async function doPost() {
-        const res = await fetch('https://kudosgen-nginx.fly.dev/api', {
-            method: 'POST',
-            body: JSON.stringify({
-                from,
-                to,
-                message
-            }),
-        });
-
-        const imageBlob = await res.blob();
-        if (imageBlob instanceof Blob) {
-            imageUrl = URL.createObjectURL(imageBlob);
-        }
+        socket.send(JSON.stringify(form));
     }
 </script>
+
 
 <form on:input={doPost}>
     <div class="grid">
         <label>
             From
-            <input placeholder="From" bind:value={from}>
+            <input placeholder="From" bind:value={form.from}>
         </label>
         <label>
             To
-            <input placeholder="To" bind:value={to}>
+            <input placeholder="To" bind:value={form.to}>
         </label>
     </div>
 
     <label for="message">Message</label>
-    <textarea maxlength="102" id="message" placeholder="Message" bind:value={message}></textarea>
+    <textarea maxlength="102" id="message" placeholder="Message" bind:value={form.message}></textarea>
 </form>
 
-<img width="100%;" src={imageUrl} alt=""/>
+<img alt="" src='data:image/png;base64,{imageData}'/>

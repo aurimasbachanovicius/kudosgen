@@ -2,18 +2,13 @@
 
 namespace Kudosgen\Generator;
 
-use Exception;
-
-class ImageGenerator
+class ImageGenerator implements ImageGeneratorInterface
 {
-    /**
-     * @throws Exception
-     */
-    public function generate(GenerateRequest $request): void
+    public function generate(GenerateRequest $request): ImageBlob
     {
-        $im = imagecreatetruecolor(1168, 826);
-
         $font = 'static/arialmt.ttf';
+
+        $im = imagecreatetruecolor(1168, 826);
 
         $white = imagecolorallocate($im, 255, 255, 255);
         $black = imagecolorallocate($im, 0, 0, 0);
@@ -27,19 +22,21 @@ class ImageGenerator
             imagettftext($im, 30, 0, 30, 40 + ($counter * 60), $black, $font, $message);
         }
 
+        ob_start();
+        imagepng($im);
+        $imageData = ob_get_clean();
+        imagedestroy($im);
+
+        return new ImageBlob($imageData);
+
 //        imageantialias();
 //        imagettfbbox();
 
-        header('Content-Type: image/png');
-        $paint = imagepng($im);
-        if ($paint === false) {
-            die('test');
-        }
-        imagedestroy($im);
-    }
-
-    public function helloWorld(): string
-    {
-        return "hello world";
+//        header('Content-Type: image/png');
+//        $paint = imagepng($im);
+//        if ($paint === false) {
+//            die('test');
+//        }
+//        imagedestroy($im);
     }
 }
