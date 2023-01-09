@@ -13,3 +13,19 @@ processes = []
 
 [build]
   build-target = "php-prod"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+  [[services.tcp_checks]]
+    interval = "5s"
+    restart_limit = 2
+    timeout = "2s"
+
+[[services]]
+  internal_port = 9000
+  protocol = "tcp"
+  [[services.tcp_checks]]
+    interval = "5s"
+    restart_limit = 2
+    timeout = "2s"
