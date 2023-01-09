@@ -3,7 +3,7 @@
 namespace Kudosgen;
 
 /**
- * Encoder encodes the string
+ * Encoder encodes the string and returns encoded string.
  */
 interface EncoderInterface
 {
