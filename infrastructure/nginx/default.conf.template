@@ -1,3 +1,7 @@
+upstream websocket {
+    server ${FASTCGI_PASS_HOST}:8080;
+}
+
 server {
     listen 8080;
     listen [::]:8080;
@@ -25,7 +29,7 @@ server {
     }
 
     location ^~ /ws {
-        proxy_pass http://${FASTCGI_PASS_HOST}:8080;
+        proxy_pass https://${FASTCGI_PASS_HOST}:8080;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
