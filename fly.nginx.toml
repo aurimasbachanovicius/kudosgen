@@ -1,5 +1,3 @@
-# fly.toml file generated for kudosgen-nginx on 2023-01-02T17:11:05+02:00
-
 app = "kudosgen-nginx"
 kill_signal = "SIGINT"
 kill_timeout = 5
