@@ -19,7 +19,7 @@ class ImageGenerator implements ImageGeneratorInterface
         $counter = 0;
         foreach ($messages as $message) {
             $counter++;
-            imagettftext($im, 30, 0, 30, 40 + ($counter * 60), $black, $font, $message);
+            imagefttext($im, 30, 0, 30, 40 + ($counter * 60), $black, $font, $message);
         }
 
         ob_start();
