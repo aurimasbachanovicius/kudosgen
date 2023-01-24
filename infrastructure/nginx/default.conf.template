@@ -23,7 +23,6 @@ server {
 
         location ~ [^/]\.php(/|$) {
             add_header Access-Control-Allow-Origin "*";
-
             include fastcgi_params;
             fastcgi_pass ${FASTCGI_PASS_HOST}:9000;
             fastcgi_index index.php;
@@ -34,6 +33,7 @@ server {
     }
 
     location ^~ /ws {
+        add_header Access-Control-Allow-Origin "*";
         proxy_pass http://websocket;
         proxy_http_version 1.1;
         proxy_set_header X-Real-IP $remote_addr;
