@@ -15,8 +15,7 @@ $server = IoServer::factory(
             new RatcherWebSocketHandler(new ImageGenerator(), new Base64Encoder())
         )
     ),
-    8080,
-    '::1'
+    8080
 );
 
 $server->run();
