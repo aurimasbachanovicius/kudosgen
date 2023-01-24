@@ -2,12 +2,13 @@
 
 namespace Kudosgen\WebSocket;
 
+use Exception;
+use Kudosgen\EncoderInterface;
 use Kudosgen\Generator\GenerateRequest;
 use Kudosgen\Generator\ImageGeneratorInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
 use Ratchet\WebSocket\MessageComponentInterface;
-use Kudosgen\EncoderInterface;
 
 class RatcherWebSocketHandler implements MessageComponentInterface
 {
@@ -24,7 +25,7 @@ class RatcherWebSocketHandler implements MessageComponentInterface
             $im = $this->imageGenerator->generate(new GenerateRequest('test from', 'test to', $msg['message']));
 
             $conn->send($this->encoder->encode($im));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo "failed to handle message " . $e->getMessage();
         }
     }
@@ -39,8 +40,9 @@ class RatcherWebSocketHandler implements MessageComponentInterface
         // TODO: Implement onClose() method.
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e): void
+    public function onError(ConnectionInterface $conn, Exception $e): void
     {
+        echo "Connection failed: " . $e->getMessage();
         // TODO: Implement onError() method.
     }
 }
