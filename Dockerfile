@@ -13,6 +13,7 @@ RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY infrastructure/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+EXPOSE ['8080', '9000']
 
 FROM php as php-prod
 COPY --from=vendor /var/www/html/composer.json /var/www/html/composer.lock ./
