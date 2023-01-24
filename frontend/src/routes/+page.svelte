@@ -8,7 +8,7 @@
 
     onMount(async () => {
         // some comment to trigger release.
-        socket = new WebSocket('wss://kudosgen-nginx.fly.dev/ws');
+        socket = new WebSocket('wss://kudosgen.com/ws');
 
         socket.onmessage = function (event) {
             imageData = event.data;
