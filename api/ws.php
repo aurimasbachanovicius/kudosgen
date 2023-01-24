@@ -6,7 +6,7 @@ use Kudosgen\WebSocket\RatcherWebSocketHandler;
 
 require_once 'vendor/autoload.php';
 
-$app = new Ratchet\App('localhost', 8080);
+$app = new Ratchet\App('0.0.0.0', 8080);
 $app->route('/image', new RatcherWebSocketHandler(new ImageGenerator(), new Base64Encoder()), ['*']);
 $app->route('/echo', new Ratchet\Server\EchoServer, ['*']);
 $app->run();
