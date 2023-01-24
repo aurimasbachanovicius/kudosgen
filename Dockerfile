@@ -1,3 +1,11 @@
+FROM golang:1.19-alpine as golang
+WORKDIR /app
+COPY generator/go.mod ./
+COPY generator/go.sum ./
+RUN go mod download
+COPY generator/ ./
+RUN go build -o /kudosgen-generator github.com/aurimasbachanovicius/kudosgen/cmd/app
+
 FROM composer:2 AS composer
 
 FROM composer AS vendor
@@ -11,9 +19,10 @@ RUN apk add zlib zlib-dev libpng-dev freetype-dev jpeg-dev curl-dev supervisor
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=golang /kudosgen-generator /usr/local/sbin/
 COPY infrastructure/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-EXPOSE 8080 9000
+EXPOSE 8080 9000 8000
 
 FROM php as php-prod
 COPY --from=vendor /var/www/html/composer.json /var/www/html/composer.lock ./
