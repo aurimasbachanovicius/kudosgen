@@ -15,7 +15,7 @@ processes = []
   build-target = "nginx-prod"
 
 [build.args]
-  FASTCGI_PASS_HOST="kudosgen-phpfpm.internal"
+  FASTCGI_PASS_HOST="kudosgen-php.internal"
 
 [[services]]
   http_checks = []
