@@ -1,11 +1,11 @@
 <?php
 
+use Kudosgen\Base64Encoder;
 use Kudosgen\Generator\ImageGenerator;
 use Kudosgen\WebSocket\RatcherWebSocketHandler;
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
-use Kudosgen\Base64Encoder;
 
 require_once 'vendor/autoload.php';
 
@@ -16,6 +16,7 @@ $server = IoServer::factory(
         )
     ),
     8080,
+    '::1'
 );
 
 $server->run();

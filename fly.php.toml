@@ -15,10 +15,10 @@ processes = []
 [[services]]
   internal_port = 8080
   protocol = "tcp"
-  [[services.tcp_checks]]
-    interval = "5s"
-    restart_limit = 2
-    timeout = "2s"
+#  [[services.tcp_checks]]
+#    interval = "5s"
+#    restart_limit = 2
+#    timeout = "2s"
 #  [[services.ports]]
 #    handlers = ["http"]
 #    port = 80
