@@ -6,6 +6,7 @@ services:
       target: nginx
       args:
         FASTCGI_PASS_HOST: "php"
+        WEBSOCKET_SERVER: "php"
     ports:
       - "8383:8080"
     volumes:

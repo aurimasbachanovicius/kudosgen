@@ -14,6 +14,7 @@ processes = []
 
 [build.args]
   FASTCGI_PASS_HOST="kudosgen-php.internal"
+  WEBSOCKET_SERVER="kudosgen-php.fly.dev"
 
 [[services]]
   http_checks = []

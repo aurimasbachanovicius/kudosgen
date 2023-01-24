@@ -6,6 +6,7 @@ services:
       target: nginx-prod
       args:
         FASTCGI_PASS_HOST: "php-prod"
+        WEBSOCKET_SERVER: "php-prod"
     ports:
       - "8384:8080"
 

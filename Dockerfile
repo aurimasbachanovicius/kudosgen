@@ -35,7 +35,9 @@ RUN npm run build
 FROM nginx:alpine as nginx
 WORKDIR /var/www/html
 ARG FASTCGI_PASS_HOST
+ARG WEBSOCKET_SERVER
 ENV FASTCGI_PASS_HOST $FASTCGI_PASS_HOST
+ENV WEBSOCKET_SERVER $WEBSOCKET_SERVER
 COPY --from=frontend /var/www/html/build ./frontend
 
 FROM nginx as nginx-prod
