@@ -16,7 +16,6 @@ $server = IoServer::factory(
         )
     ),
     8080,
-    '[::1]'
 );
 
 $server->run();
